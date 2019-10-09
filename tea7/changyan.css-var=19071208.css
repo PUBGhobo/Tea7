@@ -1,0 +1,12 @@
+#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-main .wrap-area-w .textarea-fw {  box-shadow: none!important;}
+
+#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a button.btn-fw {
+    background-image: url("post-btn.png")/*tpa=http://www.tea7.com/images/post-btn.png*/!important;
+}
+
+#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a button.btn-fw:hover {
+    background-image: url("post-btn-hover.png")/*tpa=http://www.tea7.com/images/post-btn-hover.png*/!important;
+}
+
+#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-main { background-image: none!important;}
+.changyan_parent_div {padding:0 20px!important;}

@@ -1,0 +1,174 @@
+@charset "utf-8";
+/* CSS Document */
+
+.detail_title {
+    height: 35px;
+    border-bottom: 1px #d29d9b solid;
+    margin-bottom: 30px;
+}
+
+.detail_title p {
+    position: relative;
+    float: left;
+    left: 50%;
+    clear: both;
+}
+
+.teamaster_description  img{
+     width:100%; 
+     margin: 10px 0px;
+}
+
+.detail_title p code {
+    color: #d37b77;
+    font: 24px/2.2 "Microsoft YaHei",Tahoma,Helvetica,Arial,simsun;
+    position: relative;
+    text-align: center;
+    left: -50%;
+    padding: 5px 30px;
+    display: block;
+    background: #FFFFFF;
+}
+
+/**/
+.clear {
+    display: block;
+    overflow: hidden;
+    clear: both;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+}
+ul.pri{
+	background-color: #b0352f;
+	background-image: url("goodsinfo_bg1.png")/*tpa=http://www.tea7.com/images/goodsinfo_bg1.png*/;
+	padding-bottom: 4px;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	margin-right: -4px;
+	margin-left: -1px;
+	position: relative;
+	z-index: 9;
+	padding-top: 15px;
+	padding-right: 20px;
+    height: 84px; 
+	padding-left: 20px;
+	font-family: \5FAE\8F6F\96C5\9ED1, \9ED1\4F53; 
+	margin-bottom:10px;
+}
+    ul.pri.teamaster_bg {
+      	background-color: #80572E;
+    }
+ul.pri li{
+	color: #ffffff;
+	float: left;
+	width: auto;
+	font-size: 14px;
+}
+ ul.pri li.t1{
+	line-height: 14px;
+	width: 65px;
+}
+ul.pri li.t2{
+	font-size: 30px;
+	padding-right: 10px;
+	height:45px; line-height:30px; overflow:hidden;
+    
+}
+ul.pri li.t2 > span{ vertical-align:3px;}
+ul.pri li.t3
+{
+    overflow:hidden;
+	background-color: #fbffb8;
+	color:#b0352f;
+	line-height: 28px;
+	height: 28px;
+	padding-right: 6px;
+	padding-left: 6px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+ul.pri li.t3 span {
+	line-height: 19px;
+	background-image: url("goodsinfo_tag1.png")/*tpa=http://www.tea7.com/images/goodsinfo_tag1.png*/;
+	background-repeat: no-repeat;
+	height: 19px;
+	width: 32px;
+	float: left;
+	margin-top: 5px;
+	color: #fbffb8;
+	padding-left: 15px;
+	font-size: 14px;
+	margin-right: 5px;
+}
+ ul.pri li.t4
+{
+    width: 116px;
+	clear: both;
+	padding-top:4px;
+	padding-left: 65px;
+}
+ul.pri li.t5{
+	padding-top: 4px;
+	padding-left: 15px;
+    width: 116px;
+}
+ul.pri li.t6{
+	padding-top: 0px;
+	padding-left: 15px;
+    width:210px; color:#fff;
+}
+ul.pri li strong{
+	font-family: Arial;
+	font-size: 38px;
+}
+ul.property { line-height:24px;}
+.info2{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin:10px 20px;
+	border-top: 1px dotted #dbdbdb;
+	border-bottom: 1px dotted #dbdbdb;
+	}
+.info2 li{
+	width: 240px;
+	clear: none;
+	float: left;
+	line-height: 26px;
+}
+.info2 p{
+    overflow: hidden;width: 140px;height: 26px;
+}
+.info2 li.t2,.info2 li.t4,.info2 li.t6,.info2 li.t8,.info2 li.t10{
+	width: 290px;
+}
+.info2 li.tt{ width: 500px;}
+.info2 li p.left{ width: 75px; float:left; }
+
+.add_cart_li { margin-left:20px; margin-bottom:20px; min-height:45px;height: 45px;}
+/**/
+
+
+.hb_parameter { width:926px; background:#fff; border:1px #dedede solid; padding-bottom:-1px;}
+.hb_parameter ul { float:left; width:664px; background:#dedede;}
+.hb_parameter .dj { float:left; background:#ffffff; width:262px; text-align:center;  display:table; overflow:hidden;}
+.hb_parameter .dj span {vertical-align:middle; display:table-cell; text-align:center;}
+.hb_parameter ul li { float:left; width:331px; height:35px; line-height:35px; margin-right:1px; margin-bottom:1px;}
+.hb_parameter ul li:nth-last-of-type(2), .hb_parameter ul li:last-child { margin-bottom:0px;}
+.hb_parameter ul li code { float:left; width:70px; height:25px; line-height:25px; padding:5px; background:#f4f4f4; display:inline-block; overflow:hidden; text-align:right; margin-right:1px; position:relative;}
+.hb_parameter ul li code i { width:16px; height:16px; display:block; position:absolute; top:50%; margin-top:-8px; left:20px;}
+.hb_parameter ul li code i.hbico_pj { background:url("17-16.png")/*tpa=http://www.tea7.com/css/17-16.png*/;}
+.hb_parameter ul li span { float:left; width:240px; height:25px; line-height:25px; padding:5px; background:#ffffff; display:inline-block;}
+
+
+
+/**/
+.add_cart_li a {width:170px; height:41x; line-height:41px; text-align:center; border:1px #b0352f solid; display:inline-block; font-size:16px;}
+.add_cart_li a:hover { opacity:0.8; text-decoration:none;}
+a.buy_btn_buy, a.buy_btn_buy:hover { background: #b0352f; color: #fff;}
+a.buy_btn_add { background: #ffe2e1; color: #b0352f; border:1px #b0352f solid;}
+a.buy_btn_Unable, a.buy_btn_Unable:hover { background: #999; color: #fff;border: 1px #999 solid;}
+a.buy_btn_buy_Unable, a.buy_btn_buy_Unable:hover { background: #999; color:#fff;}

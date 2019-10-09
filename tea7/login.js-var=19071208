@@ -1,0 +1,100 @@
+
+$(function () {
+    var $username = $('#login_form').find('input[name=AccountName]');
+    var $password = $('#login_form').find('input[name=Password]');
+    var $codesms = $('#login_form').find('input[name=CodeSMS]');
+    var $sendcode = $("#btnTel");
+    var pass = true;
+
+	$username.change(function () {
+		var test1 = myregExp.email.test($(this).val());
+		var test2 = myregExp.mobile.test($(this).val());
+		if(test1 || test2){
+			$('#login_form .error').hide();
+		} else {
+			$('#login_form .error').show().find('span').text('请输入正确的手机号登录');
+		}
+		pass = pass && (test1 || test2);
+	});
+
+	$password.change(function () {
+		var test1 = myregExp.num.test($(this).val());
+		var test2 = myregExp.letter.test($(this).val());
+		var test3 = myregExp.password.test($(this).val());
+		if(test1 || test2 || test3){
+			$('#login_form .error').hide();
+		} else {
+			$('#login_form .error').show().find('span').text('密码只能由6-16位英文、数字或标点符号组成');
+		}
+		pass = pass && (test1 || test2 || test3);
+	});
+
+	function codesmsblur() {
+	    var test = /^\d{4}$/.test($codesms.val());
+	    if (test) {
+	        $('#login_form .error').hide();
+	    } else {
+	        $('#login_form .error').show().find('span').text('验证码有误！');
+	    }
+	    pass = pass && test;
+	}
+
+	if ($codesms.length == 1)
+	    $('form').submit(function () {
+	        pass = true;
+	        codesmsblur();
+	        if (pass && $codesms.length > 0)
+	            $codesms.blur();
+	        if (pass && $password.length > 0)
+	            $password.blur();
+	        if (!pass)
+	            return false;
+	    });
+
+	$sendcode.click(function () {
+	    pass = true;
+	    $username.change();
+	    if ($("#SMSValidateCode").val().length!=4) {
+	        displayPopupWarn("请输入图形验证码", function () { }, 3500);
+	        return;
+	    }
+	    if (!pass)
+	        return false;
+	    if (!$sendcode.hasClass("disabled")) {
+	        $sendcode.addClass("disabled");
+	        $.ajax({
+	            cache: false,
+	            url: '/customer/CheckValidationSMS',
+	            data: { Phone: $username.val(), CustomerCheckType: 5, ValidateCode: 123456, SMSValidateCode: $("#SMSValidateCode").val() },
+	            type: 'post',
+	            success: function (rep) {
+	                if (rep.error) {
+	                    displayPopupWarn(rep.message, function () { }, 3500);
+	                    sec = 0;
+	                    $sendcode.removeClass("disabled");
+	                } else {
+	                    sec = 60;
+	                    showcode();
+	                    displayPopupOK("短信验证码已发送，请注意查收。");
+	                }
+	                //$("#imgSMSValidateCode").click();
+	                //$("#SMSValidateCode").val("");
+	            }
+	        });
+	    }
+	});
+
+});
+	var sec = 60;
+	function showcode() {
+	    if (sec >= 0) {
+	        var codetime = "重新发送({1})";
+	        $("#btnTel").val(codetime.replace("{1}", sec));
+	        sec = sec - 1;
+	        setTimeout("showcode()", 1000);
+	    } else {
+	        var codetime = "发送验证码";
+	        $("#btnTel").val(codetime);
+	        $("#btnTel").removeClass("disabled")
+	    }
+	}

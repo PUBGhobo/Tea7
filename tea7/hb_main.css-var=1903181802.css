@@ -1,0 +1,177 @@
+@charset "utf-8";
+/* CSS Document */
+.show {display:block;}
+.hide {display:none;}
+.main_cate_hb { width:200px; height:460px; background:#b0352f; position:absolute; left: 0px; top: 42px; z-index: 1999;}
+
+.main_cate_hb ul li{
+	clear: both;
+	zoom: 1;
+	cursor: default;
+	padding-bottom: 10px;
+}
+.main_cate_hb ul li .tx{
+	line-height:40px;
+	height: 40px; border-top:#a9423d solid 1px; border-bottom:#a9423d solid 1px;
+	background-color: #ad4b46;
+	padding-left: 10px;
+	background-image: url("header_bg1.png")/*tpa=http://www.tea7.com/images/header_bg1.png*/;
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+.main_cate_hb ul li .tx a {
+	font-size: 14px;
+	color: #ffffff;
+	font-family: \5FAE\8F6F\96C5\9ED1, \9ED1\4F53;
+	-webkit-transition: color 0.1s ease-out 0s;
+	-moz-transition: color 0.1s ease-out 0s;
+	-ms-transition: color 0.1s ease-out 0s;
+	-o-transition: color 0.1s ease-out 0s;
+	transition: color 0.1s ease-out 0s;
+}
+.main_cate_hb ul li .tx a i {
+	height: 25px;
+	width: 25px;
+	background-position: 0px 0px;
+	float: left;
+	margin-right: 10px;
+	line-height: 25px;
+	margin-top: 9px;
+	text-decoration: none;
+}
+.main_cate_hb ul li.a1 .tx a i {background-image: url("header_ico1.png")/*tpa=http://www.tea7.com/images/header_ico1.png*/;}
+.main_cate_hb ul li.a2 .tx a i {background-image: url("header_ico2.png")/*tpa=http://www.tea7.com/images/header_ico2.png*/;}
+.main_cate_hb ul li.a3 .tx a i {background-image: url("header_ico3.png")/*tpa=http://www.tea7.com/images/header_ico3.png*/;}
+.main_cate_hb ul li dl{
+	clear: both;
+	color: #ffffff;
+	overflow: auto;
+	zoom: 1;
+	padding-top: 10px;
+}
+.main_cate_hb ul li dl a{
+	color: #e7c5c4;
+	line-height: 22px;
+	float: left;
+	margin-right: 6px;
+	margin-left: 6px;
+	white-space: nowrap;
+	padding:5px 0;
+	-webkit-transition: color 0.1s ease-out 0s;
+	-moz-transition: color 0.1s ease-out 0s;
+	-ms-transition: color 0.1s ease-out 0s;
+	-o-transition: color 0.1s ease-out 0s;
+	transition: color 0.1s ease-out 0s;
+}
+.main_cate_hb ul li dt {
+	width: 30px;
+	padding-left: 10px;
+	float: left;
+	padding-top: 7px;
+}
+.main_cate_hb ul li dd {
+	float: left;
+	width: 160px;
+	line-height: 22px;
+	padding-bottom:2px
+}
+
+.main_cate_hb:hover ul {
+	display: block;
+}
+.main_cate_hb ul li:hover {
+	background-color: #fcfcfc;
+	 cursor:default;
+}
+.main_cate_hb ul li:hover .tx {
+	background-color: #f0f0f0; border-top:1px solid #f0f0f0; border-bottom:1px solid  #f0f0f0;
+}
+.main_cate_hb ul li:hover .tx a {
+	color: #333333;
+}
+.main_cate_hb ul li:hover .tx a i {
+	background-position: 0px -25px;
+}
+.main_cate_hb ul li:hover dl {
+	color: #6e6e6e;
+}
+.main_cate_hb ul li:hover a {
+	color: #666666;
+}
+.main_cate_hb ul li:hover a:hover{
+	color: #cd0606;
+}
+
+
+
+
+/***pop****/
+
+.main_cate_hb ul li .pop{
+	display:none;
+	background-color: #fcfcfc;
+	width: 640px;
+	min-height: 440px;
+	position: absolute;
+	left: 200px;
+	top: 0px;
+	-webkit-box-shadow: 4px 4px 5px -1px #cacaca;
+	-moz-box-shadow: 4px 4px 5px -1px #cacaca;
+	box-shadow: 4px 4px 5px -1px #cacaca;
+	padding-top: 10px;
+	padding-right: 30px;
+	padding-bottom: 10px;
+	padding-left: 30px;
+	border: solid 2px #599900\9;
+	border-left: none\9;
+	border-top: none\9;
+	height: 464px\9;
+	opacity:1;
+}
+
+.main_cate_hb ul li .pop dl{
+	padding-top: 0px;
+	padding-bottom: 3px;
+	color: #666666;
+}
+.main_cate_hb ul li .pop dl:hover{
+	background-color: #f3f3f3;
+}
+.main_cate_hb ul li .pop dl a{
+	color: #666666;
+	margin-right: 12px;
+	margin-left: 12px;
+}
+.main_cate_hb ul li .pop dl a.un {
+	color: #a5a5a5;
+}
+
+.main_cate_hb ul li .pop dt {
+	width: 72px;
+	padding-left: 10px;
+	padding-top:2px;
+}
+.main_cate_hb ul li .pop dt.pt { padding-top:7px;}
+.main_cate_hb ul li .pop dd {
+	width: 565px;
+	margin-left: -12px; padding-top:0px; height:26px; line-height:26px; overflow:hidden;
+}
+.main_cate_hb ul li .pop .act  {
+	/*position:absolute;
+	bottom:15px;*/
+	height: 80px;
+	padding-top: 10px;
+	width: 640px;
+	overflow: hidden;
+}
+.main_cate_hb ul li:hover .pop{
+	display: block;
+	left: 200px;
+	top: 0px;
+}
+.main_cate_hb ul li:hover .pop dl a.un{
+	color: #a5a5a5;
+	text-decoration: none;
+}
+
+/***pop***/

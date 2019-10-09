@@ -1,0 +1,442 @@
+/*
+  通用登录类
+   var popLogin = new LoginPop({ ShowCloseBotton : false});
+       popLogin.Show();
+*/
+function LoginPop(Option) {
+    this.IsApp = navigator.userAgent.indexOf("T7app") >= 0;
+    this.IsNewAndroidApp = navigator.userAgent.indexOf("T7appAndroidV2") >= 0;
+    this.IsNewIosApp = navigator.userAgent.indexOf("T7appIOSV2") >= 0;
+    this.setting = {
+        MobilePlatform: null,                               // 移动平台
+        WaitSmsSec : 60,                                    // 下次发短信的时间
+        Title: "验证手机",                                  // 主标题
+        Description: "",                                    // 描述 或者 简介
+        ShowCloseBotton: true,                              // 显示关闭按钮
+        ShowPassWordLogin: true,                            // 显示密码登录
+        ValidateCodeUrl: "/Home/GetValidateCode?v=" + Math.ceil(Math.random() * 100000),           // 验证码地址
+        IncomingCurrentUrl:true,           // 是否需要传入当前Url地址
+        IsImageValidate: true,      // 是否需要图形验证, 微信默认下不需要图形验证，因为微信图形验证会有问题
+        Success: null,              // 登录成功后执行
+        Close: null,                // 关闭登录窗口执行
+        Complete: null,             // 登录或者关闭窗口后执行
+        PhoneNumber: "",            // 默认指定手机号
+        DisabledPhoneNumber: false,
+        EventCategory: "LoginPop",
+        IsWeChat: navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0,   // 是否需要图形验证, 微信默认下不需要图形验证，因为微信图形验证会有问题
+        MainCss: "login_pop",       // 主体样式
+        ViceCss: "",//副样式  类似于login_pop 后面跟着的样式
+        FunctionType: "Login",//功能类型Login 登录 Bind 绑定手机号
+        CustomerFrom:0,
+    };
+    $.extend(this.setting, Option);
+    this.ColseBtnFont = "&#x346b;";
+    this.ClearBtnFont = "&#xe651;";
+    this.ShowPasswordBtnFont = "&#xe544;";
+    this.HidePasswordBtnFont = "&#xe580;";
+    this.SmsWaitSec = 0;                   // 短信等待时间
+    this.IsLogin = false;
+    this.IsMobile = typeof(this.setting.MobilePlatform) === "boolean" ? this.setting.MobilePlatform : this.HasMobile();
+    if (!this.IsMobile) {
+        this.setting.ValidateCodeUrl += "?w=160&h=45";
+        this.ColseBtnFont = "&#xe61c;";
+        this.ClearBtnFont = "&#x17a;";
+        this.ShowPasswordBtnFont = "&#xe63e;";
+        this.HidePasswordBtnFont = "&#xe63a;";
+    }
+    if (this.setting.FunctionType === "Bind")
+        this.setting.ShowPassWordLogin = false;
+};
+// style="display: inline;"
+// input-error
+LoginPop.prototype.HasMobile = function () {
+    var sUserAgent = navigator.userAgent.toLowerCase();
+    var bIsIpad = /ipad/i.test(sUserAgent);
+    var bIsIphoneOs = /iphone os/i.test(sUserAgent);
+    var bIsMidp =   /midp/i.test(sUserAgent);
+    var bIsUc7 = /rv:1.2.3.4/i.test(sUserAgent);
+    var bIsUc = /ucweb/i.test(sUserAgent);
+    var bIsAndroid = /android/i.test(sUserAgent);
+    var bIsCE = /windows ce/i.test(sUserAgent);
+    var bIsWM = /windows mobile/i.test(sUserAgent);
+    var bIsWeixinWap = /micromessenger/i.test(sUserAgent);
+    if (document.URL.toString().indexOf("http://www.tea7.com/scripts/helper/m.tea7.com") >= 0
+        || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM || bIsWeixinWap) {
+        return true;
+    } else {
+        return false;
+    }
+};
+// 显示
+LoginPop.prototype.Show = function () {
+    var This = this;
+    var setting = this.setting;
+    if (This.IsNewAndroidApp || This.IsNewIosApp) {
+        if (This.IsNewIosApp && This.IosVersion(1) >= 1020200000) {
+            window.webkit.messageHandlers.tea7func.postMessage("Login");
+            return;
+        }
+    }
+    // 出错时 div 上加上 input-error 
+    var content = '<div class="' + setting.MainCss +"  "+ setting.ViceCss + '" data-mode="sms" style="display: none;">                         ' +
+    '    <div class="login_pop_bd">                                                                                   ' +
+    '        <div class="login_meng_pop">                                                                             ' +
+    (setting.ShowCloseBotton ?
+    '            <div class="close login_btn_close"><i class="iconfont">'+ This.ColseBtnFont +'</i></div> ' : "") +
+    '            <div class="title"> <b>' + setting.Title + '</b>                                                     ' +
+    '                <p>' + setting.Description + '</p>                                                               ' +
+    '            </div>                                                                                               ' +
+    '            <div class="input-container ">                                                                       ' +
+    '                <input class="acc-input txt-input J_ping" type="tel" ' + ((setting.DisabledPhoneNumber && setting.PhoneNumber.length > 7) ? " disabled " : "") + ' id="login_txt_phonenumber" value="' + setting.PhoneNumber + '" maxlength="11" placeholder="请输入手机号" autocomplete="new-password">' +
+    '                <i class="input-icon icon-clear iconfont login_del_content">' + This.ClearBtnFont + '</i>        ' +
+    '            </div>                                                                                               ' +
+    '            <div class="input-container login_m_password" style="display:none;">                                 ' +
+    '                <input class="acc-input txt-input J_ping" type="password" id="login_txt_password" maxlength="50" placeholder="请输入密码" autocomplete="new-password">' +
+    '                <i class="input-icon icon-clear iconfont" id="login_btn_showpassword"  style="display:inline;">' + This.ShowPasswordBtnFont + '</i>' +
+    '            </div>                                                                                               ' +
+    (!setting.IsWeChat ?
+    '            <div class="input-container login_m_sms">                                                            ' +
+    '                <input class="acc-input txt-input J_ping" type="tel" id="login_txt_imgcode"  maxlength="4" placeholder="请输入图形验证码" autocomplete="new-password">' +
+    '                <span class="code-box"><img id="login_img_imgcode" src="' + setting.ValidateCodeUrl + '" alt=""></span>         ' +
+    '                <i class="input-icon icon-clear iconfont login_del_content">' + This.ClearBtnFont + '</i>        ' +
+    '            </div> ' : '')                                                                                                        +
+    '            <div class="input-box login_m_sms">                                                                  ' +
+    '                <div class="input-container">                                                                    ' +
+    '                    <input type="tel" maxlength="6" class="acc-input telphone txt-input J_ping"  id="login_txt_msmcode" autocomplete="new-password" placeholder="请输入短信验证码">                   ' +
+    '                    <i class="input-icon icon-clear iconfont login_del_content">' + This.ClearBtnFont + '</i>   ' +
+    '                </div>                                                                                          ' +
+    '                <button class="mesg-code" id="login_btn_sendsms">获取短信验证码</button>           ' +
+    '            </div>                                                                                              ' +
+    '            <div class="notice" id="log_tip_error"></div>                                                       ' +
+    '            <div class="action">                                                                                ' +
+    (setting.ShowPassWordLogin ?
+    '                   <a class="gbtn login_loginmode">密码验证</a> ' : "") +
+    '                   <a class="rbtn"  id="login_btn_login">　　确认　　</a>                                       ' +
+    '            </div>                                                                                              ' +
+    '            <div class="date_load" style="display:none;">                                                       ' +
+	'                <span>                                                                                          ' +
+	'	                <img src="imgLoading2.gif"/*tpa=http://www.tea7.com/images/imgLoading2.gif*/>                                                          ' +
+	'	                <b>登录中...</b>                                                                             ' +
+	'                </span>                                                                                         ' +
+    '            </div>                                                                                              ' +
+    '        </div>                                                                                                  ' +
+    '    </div>                                                                                                      ' +
+    '</div>';
+    var popDiv = $(content);
+    // 绑定
+    popDiv.find("input").keyup(function(){
+        if ($(this).val().length > 0) {
+            $(this).parent().find(".login_del_content").css("display", "inline");
+        }
+    });
+    // 删除内容按钮
+    popDiv.find(".login_del_content").click(function () {
+        $(this).parent().find("input").val("");
+        $(this).css("display", "");
+    });
+    // 关闭按钮
+    popDiv.find(".login_btn_close").click(function () {
+        This.Close();
+    });
+    // 切换验证码
+    popDiv.find("#login_img_imgcode").click(function () {
+        $(this).attr("src", setting.ValidateCodeUrl + "?var=" + Math.ceil(Math.random() * 10000));
+    });
+    // 登录模式
+    popDiv.find(".login_loginmode").click(function () {
+        var mode = $("." + setting.MainCss).attr("data-mode");
+        if (mode === "sms") {
+            $(this).html("短信验证");
+            $("." + setting.MainCss + " .login_m_password").show();
+            $("." + setting.MainCss + " .login_m_sms").hide();
+            $("." + setting.MainCss).attr("data-mode", "password");
+        } else {
+            $("." + setting.MainCss).attr("data-mode", "sms");
+            $(this).html("密码验证");
+            $("." + setting.MainCss + " .login_m_password").hide();
+            $("." + setting.MainCss + " .login_m_sms").show();
+        }
+    });
+
+    // 显示密码
+    popDiv.find("#login_btn_showpassword").click(function () {
+        var txtType = document.getElementById("login_txt_password").type.toString();
+        if (txtType === "password") {
+            // 切换成文本
+            document.getElementById("login_txt_password").type = "txt";
+            $(this).html(This.HidePasswordBtnFont);
+        } else {
+            // 切换密码
+            document.getElementById("login_txt_password").type = "password";
+            $(this).html(This.ShowPasswordBtnFont);
+        }
+    });
+
+    // 发送验证码
+    popDiv.find("#login_btn_sendsms").click(function () {
+        if (This.SmsWaitSec > 0) return;
+        This.Tip("");
+        // 验证手机号
+        if (!This.CheckPhoneNumber($("#login_txt_phonenumber"), "请输入正确的手机号")) {
+            This.SetGoogleEvent("点击获取短信验证码", "未输入正确的手机号");
+            return false;
+        }
+        if (!setting.IsWeChat) {
+            // 不是微信需要验证图形验证码
+            if (!This.CheckNumber($("#login_txt_imgcode"), "请输入正确的图像验证码")) {
+                This.SetGoogleEvent("点击获取短信验证码", "未输入图像验证码");
+                return false;
+            }
+        }
+        $("#login_btn_sendsms").addClass("mesg-disable");
+        // 发送验证码
+        $.ajax({
+            asyn: false,
+            cache: false,
+            url: '/customer/CheckValidationSMS',
+            data: { Phone: $("#login_txt_phonenumber").val(), SMSValidateCode: $("#login_txt_imgcode").val() },
+            type: 'post',
+            success: function (rep) {
+                if (rep.error) {
+                    if ($("#login_img_imgcode").length > 0)
+                        $("#login_img_imgcode").click();
+                    This.SetGoogleEvent("点击获取短信验证码", "失败，" + rep.message);
+                    This.Tip(rep.message);
+                    This.SmsWaitSec = 0;
+                    $("#login_btn_sendsms").removeClass("mesg-disable");
+                } else {
+                    // 显示减时间动画
+                    This.SmsWaitSec = setting.WaitSmsSec;
+                    This.WaitTimeSendSMS();
+                    This.SetGoogleEvent("点击获取短信验证码", "成功");
+                }
+            }
+        });
+    });
+
+    // 确认按钮
+    popDiv.find("#login_btn_login").click(function () {
+        if (!This.IsLogin) {
+            This.Tip("");
+            // 验证手机号
+            if (!This.CheckPhoneNumber($("#login_txt_phonenumber"), "请输入正确的手机号")) {
+                This.SetGoogleEvent("点击确认登录按钮", "未输入正确的手机号");
+                return false;
+            }
+            var requestParms = { AccountName: $("#login_txt_phonenumber").val(), CustomerFrom: setting.CustomerFrom };
+            if (setting.IncomingCurrentUrl)
+                requestParms.UrlReferrer = document.URL;
+            var requestUrl = "";
+            var mode = $("." + setting.MainCss).attr("data-mode");
+            if (mode.toLowerCase() === "sms") {
+                // 验证短信验证码
+                if (!This.CheckNumber($("#login_txt_msmcode"), "请输入短信验证码")) {
+                    This.SetGoogleEvent("点击确认登录按钮", "未输入短信验证码");
+                    return false;
+                }
+                requestParms.CodeSMS = $("#login_txt_msmcode").val();
+                requestUrl = "/Customer/SmsLoginHandler";  // 2017.3.16 已经允许微信绑定手机号的操作，不需要特殊指定其他接口
+            } else {
+                // 验证密码
+                if (!This.CheckEmpty($("#login_txt_password"), "请输入登录密码")) {
+                    This.SetGoogleEvent("点击确认登录按钮", "未输入登录密码");
+                    return false;
+                }
+                requestParms.Password = $("#login_txt_password").val();
+                requestUrl = "/Customer/PasswordLoginHandler";
+            }
+            This.Lock();
+            This.LoginOrBind(requestUrl, requestParms);
+        }
+    });
+    popDiv.appendTo("body").show();
+    $("body").css("overflow-y", "hidden");
+};
+
+// 锁定
+LoginPop.prototype.Lock = function () {
+    var This = this;
+    This.IsLogin = true;
+    $("." + This.setting.MainCss + " .date_load").show();
+    $("#login_txt_phonenumber").attr("readonly", "readonly");
+    $("#login_txt_password").attr("readonly", "readonly");
+    $("#login_txt_imgcode").attr("readonly", "readonly");
+    $("#login_txt_msmcode").attr("readonly", "readonly");
+    $("#login_btn_login").attr("disabled", "disabled");
+};
+
+// 解锁
+LoginPop.prototype.UnLock = function () {
+    var This = this;
+    This.IsLogin = false;
+    $("." + This.setting.MainCss + " .date_load").hide();
+    $("#login_txt_phonenumber").attr("readonly", null);
+    $("#login_txt_password").attr("readonly", null);
+    $("#login_txt_imgcode").attr("readonly", null);
+    $("#login_txt_msmcode").attr("readonly", null);
+    $("#login_btn_login").attr("disabled", null);
+};
+
+// 等待发送短信动画
+LoginPop.prototype.WaitTimeSendSMS = function () {
+    var This = this;
+    if (This.SmsWaitSec > 0) {
+        var codetime = "重新发送({1})";
+        $("#login_btn_sendsms").html(codetime.replace("{1}", This.SmsWaitSec));
+        This.SmsWaitSec = This.SmsWaitSec - 1;
+        setTimeout(function () {
+            This.WaitTimeSendSMS();
+        }, 1000);
+    } else {
+        $("#login_btn_sendsms").html("获取短信验证码").removeClass("mesg-disable");
+    }
+}
+
+// 关闭
+LoginPop.prototype.Close = function (isCallback) {
+    if (typeof (isCallback) === "undefined") isCallback = true;
+    var This = this;
+    var setting = this.setting;
+    $("." + setting.MainCss).hide().remove();
+    $("body").css("overflow-y", "");
+    $("body").css("overflow-y", null);
+    if (isCallback) {
+        if (typeof (setting.Complete) === "function") {
+            setting.Complete();
+        }
+        if (typeof (setting.Close) === "function") {
+            setting.Close();
+        }
+    } else {
+        This.SetGoogleEvent("用户自行关闭登录窗口", "成功");
+    }
+};
+
+// 验证手机号
+LoginPop.prototype.CheckPhoneNumber = function (checkObj, errorInfo) {
+    if (!/^1[0-9]{10}$/.test(checkObj.val())) {
+        checkObj.parent().addClass("input-error");
+        this.Tip(errorInfo);
+        return false;
+    } else {
+        checkObj.parent().removeClass("input-error");
+        this.Tip("");
+        return true;
+    }
+};
+
+//提示
+LoginPop.prototype.Tip = function (error) {
+    $("#log_tip_error").html(error);
+};
+
+// 验证是否纯数字
+LoginPop.prototype.CheckNumber = function (checkObj, errorInfo) {
+    if (!/^\d+$/.test(checkObj.val())) {
+        checkObj.parent().addClass("input-error");
+        this.Tip(errorInfo);
+        return false;
+    } else {
+        checkObj.parent().removeClass("input-error");
+        this.Tip("");
+        return true;
+    }
+};
+
+// 验证是否为空
+LoginPop.prototype.CheckEmpty = function (checkObj, errorInfo) {
+    if (checkObj.val() === "")
+    {
+        checkObj.parent().addClass("input-error");
+        this.Tip(errorInfo);
+        return false;
+    } else {
+        checkObj.parent().removeClass("input-error");
+        this.Tip("");
+        return true;
+    }
+};
+
+// 登录或者绑定
+LoginPop.prototype.LoginOrBind = function (requestUrl, requestParms)
+{
+    var setting = this.setting;
+    var This = this;
+    // 请求登录
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url: requestUrl,
+        data: requestParms,
+        success: function (msg) {
+            This.Tip(msg.Info);
+            if (!msg.Success) {
+                This.SetGoogleEvent("点击确认登录按钮", "失败，" + msg.Info);
+            }
+            else {
+                This.SetGoogleEvent("点击确认登录按钮", "成功");
+                if (navigator.userAgent.indexOf("T7appIOSV2") >= 0 ||
+                        navigator.userAgent.indexOf("T7appAndroidV2") >= 0) {
+                    if (navigator.userAgent.indexOf("T7appIOSV2") >= 0) {
+                        window.webkit.messageHandlers.tea7func.postMessage("SetCustomerLogin_" + msg.DataValue.SecretKey);
+                    } else if (typeof (window.tea7func.androidMethod_SetCustomerLogin) != "undefined") {
+                        window.tea7func.androidMethod_SetCustomerLogin(msg.DataValue.SecretKey);
+                    }
+                }
+                if (typeof (setting.Success) === "function") {
+                    setting.Success(msg.DataValue.Id, msg.DataValue.SecretKey);
+                }
+                if (typeof (setting.Complete) === "function") {
+                    setting.Complete(msg.DataValue.Id, msg.DataValue.SecretKey);
+                }
+                This.Close(false);
+            }
+            This.IsLogin = false;
+            This.UnLock();
+        }
+    });
+}
+
+/* 发送google事件 */
+LoginPop.prototype.SetGoogleEvent = function (eventAction, eventLabel) {
+    var This = this;
+}
+LoginPop.prototype.IosVersion = function (type) {
+    //1 00 00 00 000
+    if (navigator.userAgent.indexOf("T7appAndroidV2") < 0 && navigator.userAgent.indexOf("T7appIOSV2") < 0)
+        return 0;
+    var version = "";
+    if (typeof (type) == "undefined")
+        type = 1;
+    if (type === 1)
+        version = navigator.userAgent.match(/T7appIOSV([1-9](\d+)?)(\.\d+){0,3}/)[0].match(/([1-9](\d+)?)(\.\d+){0,3}$/)[0];
+    else
+        version = navigator.userAgent.match(/T7appAndroidV([1-9](\d+)?)(\.\d+){0,3}/)[0].match(/([1-9](\d+)?)(\.\d+){0,3}$/)[0];
+    if (version == null || version.length <= 0)
+        version = "2";
+    var versionArry = version.split('.');
+    var str = "1";
+    for (var i = 0; i < versionArry.length; i++) {
+        if (i !== versionArry.length - 1 || versionArry.length < 4) {
+            if (versionArry[i].length === 1) {
+                str += "0" + versionArry[i];
+            } else if (versionArry[i].length === 2)
+                str += versionArry[i];
+        }
+        else {
+            if (versionArry[i].length === 1) {
+                str += "00" + versionArry[i];
+            } else if (versionArry[i].length === 2)
+                str += "0" + versionArry[i];
+            else if (versionArry[i].length === 3)
+                str += versionArry[i];
+        }
+    }
+    var strlength = str.length;
+    if (strlength < 10) {
+        for (var j = 0; j < 10 - strlength; j++) {
+            str += "0";
+        }
+    }
+    return parseInt(str);
+}

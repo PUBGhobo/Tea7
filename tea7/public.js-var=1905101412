@@ -1,0 +1,106 @@
+var EnableStaticPage = true; //是否启用静态页
+
+$(function () {
+    $('#header_mymember').hover(function () {
+        $(this).toggleClass('hover');
+    });
+
+    $('#header_guanzhu').hover(function () {
+        $(this).toggleClass('hover');
+    });
+
+    var itime;
+    $('#header_cart').mouseenter(function () {
+        if (itime != "") {
+            clearTimeout(itime);
+        }
+        $(this).addClass("head_cart_hover");
+    }).mouseleave(function () {
+        itime = setTimeout(function () {
+            $('#header_cart').removeClass("head_cart_hover")
+        }, 500);
+    });
+    //右侧浮动导航高度	
+
+    //头部导航经过效果
+    $('#main_nav').hover(function () {
+        $(this).toggleClass('main_cate_hover');
+    });
+
+    $('#g_sidebar li').hover(function () {
+        $(this).toggleClass('hover');
+    });
+
+    $('#g_sidebar .back2top').click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 600);
+        return false;
+    })
+
+    $('#g_sidebar').height($(window).height());
+
+    $(window).resize(function () {
+        $('#g_sidebar').height($(window).height());
+    });
+});
+
+function addToFav() {
+    var a = window.location, b = document.title;
+    document.all ? window.external.AddFavorite(a, b) : window.sidebar && window.sidebar.addPanel ? window.sidebar.addPanel(b, a, "") : alert("\u5bf9\u4e0d\u8d77\uff0c\u60a8\u7684\u6d4f\u89c8\u5668\u4e0d\u652f\u6301\u6b64\u64cd\u4f5c!\n\u8bf7\u60a8\u4f7f\u7528\u83dc\u5355\u680f\u6216Ctrl+D\u6536\u85cf\u672c\u7ad9\u3002")
+};
+
+function SetFeaturedUserId() {
+    var parms = {};
+    var request = GetRequestParms();
+    if (request["friend"] != undefined || request["featured"] != undefined) {
+        if (request["friend"] != undefined)
+            parms.friend = request["friend"];
+        if (request["featured"] != undefined)
+            parms.featured = request["featured"];
+        $.ajax({
+            url: "/Json/SetFeaturedUserId",
+            data: parms
+        });
+    }
+}
+
+function AddRewardPoints() {
+    var request = GetRequestParms();
+    if (request["friend"] != undefined) {
+        $.ajax({
+            url: "/Json/AddRewardPoints",
+            data: { friend: request["friend"] }
+        });
+    }
+}
+
+//设置用户访问渠道信息
+function SetChannel() {
+    var parms = {};
+    var request = GetRequestParms();
+    if (request["qd"] != undefined && request["qd"] != null) {
+        parms.qd = request["qd"];
+        // 分销人员编号
+        if (request["spid"] != undefined && request["spid"] != null)
+            parms.spid = request["spid"];
+        $.ajax({
+            url: "/Json/SetChannel",
+            data: parms
+        });
+    }
+}
+
+function GetRequestParms(name) {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            if (strs[i].split("=")[0].toLowerCase() == name) {
+                continue;
+            }
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}

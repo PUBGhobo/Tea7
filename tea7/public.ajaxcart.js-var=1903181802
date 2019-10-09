@@ -1,0 +1,361 @@
+var AjaxCart = {
+    loadWaiting: false,
+    usepopupnotifications: false,
+    topcartselector: '',
+    topwishlistselector: '',
+    flyoutcartselector: '',
+    init: function (usepopupnotifications, topcartselector, topwishlistselector, flyoutcartselector) {
+        this.loadWaiting = false;
+        this.usepopupnotifications = usepopupnotifications;
+        this.topcartselector = topcartselector;
+        this.topwishlistselector = topwishlistselector;
+        this.flyoutcartselector = flyoutcartselector;
+    },
+    setLoadWaiting: function (display) {
+        displayAjaxLoading(display);
+        this.loadWaiting = display;
+    },
+    delproduct: function (id) {
+        if (this.loadWaiting != false) {
+            return;
+        }
+        this.setLoadWaiting(true);
+        var d = dialog({
+            content: '<div class="tip_confirm"><i class="iconfont">&#xe619;</i>确定要删除该商品吗？</div>',
+            cancel: false,
+            cancelValue: '取消',
+            cancel: function () {
+                AjaxCart.setLoadWaiting(false);
+                return;
+            },
+            okValue: '确定',
+            ok: function () {
+                $.ajax({
+                    cache: false,
+                    url: "/shoppingcart/removecartitem",
+                    data: { sciId: id },
+                    type: 'post',
+                    success: function (rep) {
+                        if (rep.success) {
+                            $("#item_" + id).remove();
+                            checkTotal();
+                            //$("#content").html(rep.html);
+                        }
+                        AjaxCart.setLoadWaiting(false);
+                    }
+                });
+                return true;
+            },
+            width: 240
+        });
+        d.show();
+    },
+    delproducts: function () {
+        if (this.loadWaiting != false) {
+            return;
+        }
+        this.setLoadWaiting(true);
+        var ids = [];
+        $("input[name=chkitem]:checked").each(function (i, t) {
+            ids.push($(this).val());
+        });
+        if (ids.length == 0) {
+            var d = dialog({
+                content: '<div class="tip_warn"><i class="iconfont">&#xe633;</i>请选择要删除的商品</div>',
+                okValue: '确定',
+                ok: function () {
+                    AjaxCart.setLoadWaiting(false);
+                    return true;
+                },
+                width: 200
+            });
+            d.show();
+            return false;
+        }
+        var ids_group = ids.join(",");
+        var d = dialog({
+            content: '<div class="tip_confirm"><i class="iconfont">&#xe619;</i>确定要删除这些商品吗？</div>',
+            cancel: false,
+            cancelValue: '取消',
+            cancel: function () {
+                AjaxCart.setLoadWaiting(false);
+                return;
+            },
+            okValue: '确定',
+            ok: function () {
+                $.ajax({
+                    cache: false,
+                    url: "/shoppingcart/removecartitems",
+                    data: { sciIds: ids_group },
+                    type: 'post',
+                    success: function (rep) {
+                        if (rep.success) {
+                            for (var i = 0; i < ids.length; i++) {
+                                $("#item_" + ids[i]).remove();
+                            }
+                            checkTotal();
+                            //$("#content").html(rep.html);
+                        }
+                        AjaxCart.setLoadWaiting(false);
+                    }
+                });
+                return true;
+            },
+            width: 240
+        });
+        d.show();
+    },
+    post: function () {
+        if (this.loadWaiting != false) {
+            return;
+        }
+        this.setLoadWaiting(true);
+        $("#topay").attr("data-status", 0);
+        var urladd = "/shoppingcart/updatecartall";
+        var formselector = "#cart-summary-form";
+        $.ajax({
+            cache: false,
+            url: urladd,
+            data: $(formselector).serialize(),
+            type: 'post',
+            success: function (rep) {
+                $("#topay").attr("data-status", 1);
+                if (rep.success) {
+                    $("#topay").attr("data-status", 1);
+                    if (typeof (checkTotal) == "function") {
+                        checkTotal();
+                    }
+                } else {
+                    var d = dialog(
+                           {
+                               title: '',
+                               content: rep.warn,
+                               okValue: '确定',
+                               icon: 'ok',
+                               width: 340,
+                               ok: function () {
+                                   d.close().remove();
+                                   return true;
+                               },
+                               onshow: function () {
+                                   $("#dialog_close").click(function () {
+                                       d.close().remove();
+                                   })
+                               }
+                           });
+                    d.show();
+                }
+                AjaxCart.setLoadWaiting(false);
+            }
+        });
+    },
+    checkout: function (anonymous) {
+        if ($("#topay").hasClass("topay_ok") &&
+            $("#topay").attr("data-status") == "1") {
+            //var ids = [];
+            //$("input[name=chkitem]:checked").each(function (i, t) {
+            //    ids.push($(this).val());
+            //});
+            //ids = ids.join(",");
+            var ids = [];
+            $("input[name=chkitem]:checked").each(function (i, t) {
+                var q = 1;
+                var rootNote = $(this).parent().parent().parent().parent();
+                if (rootNote.hasClass("item_content")) {
+                    var num = parseInt(rootNote.find(".num_val").val());
+                    if (!isNaN(num)) q = num;
+                }
+                ids.push($(this).val() + "_" + q);
+            });
+            ids = ids.join(",");
+            this.setLoadWaiting(true);
+            $.ajax({
+                cache: false,
+                url: "/shoppingcart/StartCheckoutV2",
+                data: { sciIds: ids, anonymous: anonymous },
+                type: 'post',
+                success: function (rep) {
+                    AjaxCart.setLoadWaiting(false);
+                    if (rep.message) {
+                        var d = dialog(
+                          {
+                              title: '',
+                              content: rep.message,
+                              okValue: '确定',
+                              icon: 'ok',
+                              width: 340,
+                              ok: function () {
+                                  d.close().remove();
+                                  return true;
+                              },
+                              onshow: function () {
+                                  $("#dialog_close").click(function () {
+                                      d.close().remove();
+                                  })
+                              }
+                          });
+                        d.show();
+                    }
+                    if (rep.error) {
+                        if (rep.url) {
+                            window.parent.window.location.href = rep.url;
+                        }
+                    }
+                    if (rep.success) {
+                        window.parent.window.location.href = rep.url;
+                    }
+                }
+            });
+        }
+    },
+    addproducttocart: function (urladd, formselector) {
+        if (this.loadWaiting != false) {
+            return;
+        }
+        this.setLoadWaiting(true);
+        //if (urladd.indexOf("AddProductVariantToCheckout") > 0) {
+        //    $.ajax({
+        //        cache: false,
+        //        url: urladd,
+        //        data: $(formselector).serialize(),
+        //        type: 'post',
+        //        success: function (data) {
+        //            window.parent.window.location.href = data.redirect;
+        //            AjaxCart.setLoadWaiting(false);
+        //        },
+        //        complete: function (data) {
+        //            console.log("complete:" + data);
+        //            AjaxCart.setLoadWaiting(false);
+        //        },
+        //        error: function (data) {
+        //            console.log("error:" + data);
+        //            AjaxCart.setLoadWaiting(false);
+        //        }
+        //    });
+        //}
+        //else {
+        var parm = "";
+        if (typeof (formselector) != "undefined")
+            parms = $(formselector).serialize();
+        if (parms.length > 0)
+            parms += "&";
+        parms += "urlReferrer=" + document.referrer;
+        $.ajax({
+            cache: false,
+            url: urladd,
+            data: parms,
+            type: 'post',
+            success: this.successprocess,
+            complete: this.resetLoadWaiting,
+            error: this.ajaxFailure
+        });
+        //}
+    },
+    speedbuy: function (urladd, formselector) {
+        if (this.loadWaiting != false) {
+            return;
+        }
+        this.setLoadWaiting(true);
+        $.ajax({
+            cache: false,
+            url: urladd,
+            data: $(formselector).serialize(),
+            type: 'post',
+            success: function (data) {
+                AjaxCart.setLoadWaiting(false);
+                if (typeof (data.message) != "undefined") {
+                    var d = dialog(
+                    {
+                        title: '',
+                        content: data.message,
+                        okValue: '确定',
+                        icon: 'ok',
+                        ok: function () {
+                            d.close().remove();
+                            return true;
+                        },
+                        onshow: function () {
+                            $("#dialog_close").click(function () {
+                                d.close().remove();
+                            })
+                        }
+                    });
+                    d.show();
+                }
+                if (typeof (data.redirect) != "undefined") {
+                    window.parent.window.location.href = data.redirect;
+                }
+            },
+            error: function (data) {
+                console.log("error:" + data);
+                AjaxCart.setLoadWaiting(false);
+            }
+        });
+    },
+    successprocess: function (response) {
+        if (response.updatetopcartsectionhtml) {
+            $(AjaxCart.topcartselector).html(response.updatetopcartsectionhtml);
+            if (window.parent)
+                $(AjaxCart.topcartselector, window.parent.document).html(response.updatetopcartsectionhtml);
+            if (response.updatetopcartsectionhtml > 0) {
+                $(AjaxCart.topcartselector).css("visibility", "visible");
+                if (window.parent)
+                    $(AjaxCart.topcartselector, window.parent.document).css("visibility", "visible");
+            }
+        }
+        if (response.updatetopwishlistsectionhtml) {
+            $(AjaxCart.topwishlistselector).html(response.updatetopwishlistsectionhtml);
+        }
+        if (response.updateflyoutcartsectionhtml) {
+            $(AjaxCart.flyoutcartselector).replaceWith(response.updateflyoutcartsectionhtml);
+            if (window.parent)
+                $(AjaxCart.flyoutcartselector, window.parent.document).html(response.updateflyoutcartsectionhtml);
+        }
+        if (response.message) {
+            //display notification
+            if (response.success == true) {
+                //success
+                if (AjaxCart.usepopupnotifications == true) {
+                    var d = dialog(
+                        {
+                            title: '',
+                            content: response.message,
+                            icon: 'ok',
+                            width: 340,
+                            onshow: function () {
+                                $("#dialog_close").click(function () {
+                                    d.close().remove();
+                                })
+                            }
+                        });
+                    d.show();
+                }
+                else {
+                    displayBarNotification(response.message, 'ok', 3500);
+                }
+            }
+            else {
+                //error
+                if (AjaxCart.usepopupnotifications == true) {
+                    displayPopupWarn(response.message, null, 3000);
+                }
+                else {
+                    displayBarNotification(response.message, 'error', 0);
+                }
+
+            }
+            //return false;
+        }
+        if (response.redirect) {
+            window.parent.window.location.href = response.redirect;
+            return true;
+        }
+        return false;
+    },
+    resetLoadWaiting: function () {
+        AjaxCart.setLoadWaiting(false);
+    },
+    ajaxFailure: function () {
+        alert('Failed to add the product to the cart. Please refresh the page and try one more time.');
+    }
+};

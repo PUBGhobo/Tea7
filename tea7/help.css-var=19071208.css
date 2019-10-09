@@ -1,0 +1,316 @@
+.header_help, .pages_tab {
+	border-bottom: 1px solid #ddd
+}
+.header_help {
+	height: 80px;
+	background-color: #fff
+}
+.header_help .hd_main {
+	width: 1200px;
+	margin: 0 auto
+}
+.header_help .p_l {
+	float: left;
+	padding-top: 14px
+}
+.header_help .p_r {
+	float: right;
+	padding-top: 25px
+}
+.header_help .logo {
+	float: left;
+    width: 139px;
+    height: 52px;
+}
+.header_help .logo a {
+	display: block;
+	height: 52px;
+	background: url("logo-lizi.png")/*tpa=http://www.tea7.com/images/pc/logo-lizi.png*/ 0 center no-repeat;
+}
+.header_help .page_title {
+	float: left;
+	padding: 7px 0 0 10px;
+}
+.header_help .page_title h2 {
+	font-size: 22px;
+	font-weight: 400;
+    padding-top: 5px;
+}
+.search_help {
+	width: 460px;
+	height: 32px;
+	border: 3px solid #b0352f;
+	border-right: none;
+	background-color: #fff;
+	overflow: hidden;
+	box-shadow: 2px 1px 1px rgba(200, 200, 200, .5)inset
+}
+.search_help .text {
+	float: left;
+	padding: 0;
+	margin: 7px 8px 0;
+	width: 360px;
+	height: 20px;
+	line-height: 20px;
+	color: #bbb;
+	outline: 0;
+	border: none;
+	background: 0 0;
+	box-shadow: none
+}
+.search_help .submit {
+	font-size: 15px;
+	color: #fff;
+	float: right;
+	padding-left: 6px;
+	border: none;
+	background-color: #b0352f;
+	width: 80px;
+	height: 32px;
+	cursor: pointer;
+	letter-spacing: 5px;
+	overflow: hidden
+}
+.search_help .submit:hover {
+	color: #ffd736
+}
+.here {
+	margin-bottom: 8px
+}
+.pages_tab {
+	margin-bottom: 20px;
+	height: 44px
+}
+.pages_tab ul {
+	width: 100%;
+	height: 44px
+}
+.pages_tab ul li {
+	position: relative;
+	top: 1px;
+	z-index: 999;
+	float: left;
+	margin-left: 10px
+}
+.pages_tab ul li a {
+	border: 1px solid #ddd;
+	height: 42px;
+	line-height: 42px;
+	padding: 0 35px;
+	display: block;
+	font-size: 14px;
+	background-color: #f5f5f5
+}
+.help_left, .help_right {
+	/*border: 1px solid #dedede*/
+}
+.pages_tab ul li a:hover {
+	text-decoration: none;
+	background-color: #eee
+}
+.pages_tab ul li.on a {
+	color: #b0352f;
+	text-decoration: none;
+	background-color: #fafafa;
+	border-bottom: 1px solid #fafafa
+}
+.help_left {
+	width: 210px;
+	background: #fff
+}
+.help_right {
+	width: 965px;
+	float: right;
+	border-top: none;
+	background: #fff
+}
+.help_left .title h4 {
+	height: 61px;
+	background: #fff;
+	line-height: 58px;
+	font-size: 24px;
+	text-indent: 20px;  border-top: 2px #b0352f solid;
+}
+.menu .col a, .menu .col h3 {
+	height: 40px;
+	line-height: 40px
+}
+.help_left .title h4 i {
+	margin-right: 4px;
+	color: #b0352f;
+	font-size: 28px
+}
+.menu .col h3 {
+	position: relative;
+	/*border-top: 1px solid #dedede;*/
+	text-indent: 20px;
+	font-size: 16px;
+	cursor: pointer;
+	/*background-color: #f8f8f8*/
+}
+.menu .col a {
+	display: block
+}
+.menu .col a:hover {
+	text-decoration: none
+}
+.menu .col i {
+	position: absolute;
+	right: 20px;
+	top: 14px;
+	color: #ccc;
+	line-height: 1;
+	text-indent: 0;
+	transition: all .5s;
+	font-size: 12px
+}
+.menu .col li {
+	color: #8c8c8c;
+	text-indent: 34px;
+	font-size: 14px;
+	cursor: pointer
+}
+.menu .col .child_nav {
+	/*border-top: 1px solid #ddd;*/
+	/*display: none*/
+    margin-bottom: 10px;
+}
+.hidemenu .col .child_nav, .menu .col_on .child_nav {
+	display: block
+}
+.help_title, .list_box {
+	border-top: 3px solid #b0352f
+}
+.menu .col .child_nav a {
+	height: 32px;
+	line-height: 32px
+}
+.menu .col .child_nav li a:hover {
+	background: #f4f4f4
+}
+.menu .col_on i.arrow {
+	transform: rotate(180deg)
+}
+.hidemenu .col h3 {
+	cursor: default
+}
+.hidemenu .col i {
+	visibility: hidden
+}
+.help_title {
+	font-size: 24px;
+	padding: 10px 20px
+}
+.help_content {
+	padding: 20px;
+	font-size: 14px;
+	line-height: 24px
+}
+.list_box {
+	padding: 20px
+}
+.list_box .list li {
+	position: relative;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px dashed #eee
+}
+.list_box .list li h3 {
+	margin-bottom: 5px;
+	font-weight: 700
+}
+.list_box .list li h3 i {
+	color: #b0352f;
+	font-size: 22px;
+	margin-right: 4px
+}
+.list_box .list li p {
+	font-size: 12px;
+	color: #999;
+	padding-right: 100px;
+	padding-left: 26px
+}
+.list_box .list li a.go {
+	position: absolute;
+	top: 20px;
+	right: 10px;
+	border: 1px solid #eee;
+	padding: 2px 10px;
+	border-radius: 2px
+}
+.job_page, .topbanner, .topbanner .bd {
+	position: relative
+}
+.job_page {
+	background-color: #fff;
+	overflow: hidden
+}
+.topbanner {
+	left: 50%
+}
+.topbanner .bd {
+	font-size: 0;
+	width: 1920px;
+	margin-left: -960px
+}
+.topbanner .bd img {
+	vertical-align: top
+}
+.job_main {
+	width: 1130px;
+	padding: 50px 35px;
+	background-color: #f0f0f0;
+	margin: 0 auto
+}
+.job_main .help_left {
+	border: none;
+	background: 0 0
+}
+.job_main .menu .col {
+	margin-bottom: 30px
+}
+.job_main .menu .col .child_nav {
+	border: none
+}
+.job_main .menu .col h3 {
+	border: none;
+	background: 0 0;
+	font-weight: 700;
+	font-size: 20px;
+	text-indent: 0;
+	cursor: default;
+	position: static
+}
+.job_main .menu .col li {
+	font-size: 14px;
+	text-indent: 0;
+	cursor: default
+}
+.job_main .menu .col .child_nav a {
+	display: inline
+}
+.job_main .menu .col .child_nav a:hover {
+	background: 0 0;
+	text-decoration: underline
+}
+.job_main .help_right {
+	width: 910px;
+	background: 0 0;
+	border: none
+}
+.job_main .help_right .help_title {
+	border: none;
+	font-size: 24px;
+	font-weight: 700;
+	padding-top: 0
+}
+.job_main .hremail {
+	margin-top: 50px;
+	margin-left: 20px
+}
+.job_main .hremail a {
+	margin-right: 15px
+}
+.help_main {
+    margin-top:20px;
+}

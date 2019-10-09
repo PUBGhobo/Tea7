@@ -1,0 +1,130 @@
+*{margin:0;padding:0px;list-style:none;}
+		body{background-color:#f5f5f5;}
+	  .title1{
+		  width:100%;
+		  height:26px;
+			background-color:#f0f0f0;
+			position:relative;
+			z-index:2002;}
+		.title{
+		  width:1200px;
+			margin:0 auto;
+			padding-top:1px;}
+		.tt{
+		  float:right;
+			padding-right:10px;}
+		.dl{
+		  float:left;
+			position:relative;
+			z-index:2000;
+			height:18px;
+			line-height:18px;
+			padding:3px 0 3px 18px;}
+		.dl a{
+		  text-decoration:none;
+			font-size:12px;
+			color:#9e9e9e;
+			margin-left:10px;}
+		.tiao{
+		  width:100%;
+			height:98px;
+			background-color:#fff;}
+		.header{
+		  width:1200px;
+			height:98px;
+			margin:-98px auto;}
+		.logo{
+		  background-color:#fff;
+			position:absolute;
+			margin:auto;
+			z-index:999;}
+		.logo img{
+		  float:left;
+		  margin-top:14px;}
+		.logo input{
+		  float:left;
+			margin:8px 8px;
+			width:364px;
+			height:20px;
+			line-height:20px;
+			color:#bbb;
+			outline:0;
+			border:none;
+			background:0 0;}
+		.shuru{
+		  position:absolute;
+			left:270px;
+			top:20px;
+			width:510px;
+			height:36px;
+			border:2px solid #c3625d;
+			background-color:#fff;
+      overflow:hidden;
+			box-shadow:-1px 1px 3px rgba(200,200,200,.4);}
+		.sousuo{
+		  font-size:0;
+			float:right;
+			border:none;
+			width:129px;
+			height:40px;
+			cursor:poiner;
+      background:url("./png/search-btn.png") 0 -4px no-repeat #b0352f;
+			overflow:hidden;}
+		.hot_search{
+		  position:absolute;
+			top:70px;
+			left:270px;
+			width:450px;
+			height:30px;
+			overflow:hidden;}
+		.hot_search span{
+		  color:#999;
+			font-size:10px;}
+		.hot_search a{
+		  margin:0 8px 0 5px;
+			color:#666;
+			text-decoration:none;
+			transition:#b0352f 0.2s;
+			font-size:10px;}
+		.gouwuche{		  
+			width:129px;
+			height:40px;
+			border:1px solid #ddd;
+			background:#fff;
+            position:absolute;
+			top:21px;
+			right:-815px;}
+		.tit{
+			z-index:10;
+			font-size:14px;
+			color:#999;
+			text-decoration:none;
+			text-align:center;
+			margin:0px auto;}
+		.dx{width:20px;
+		  height:20px;
+			margin:0px auto;			
+			float:left;}
+		.hotline{
+		  position:absolute;
+			right:0px;
+			top:0;
+			padding-top:18px;
+			font-size:14px;
+			color:#b5b5b5;
+			line-height:20px;
+			font-weight:lighter;
+			text-align:right;
+			float:right;
+        }
+        .gwc img{
+            position: absolute;
+            top:-3px;
+            left:15px;
+        }
+        .gwc a{
+            display: block;
+            position: absolute;
+            top:10px;
+            left:49px;
+        }

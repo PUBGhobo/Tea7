@@ -1,0 +1,107 @@
+@charset "utf-8";
+/* CSS Document */
+
+.tea_slist_left { float:left; margin-right:20px; width:900px;}
+.tea_slist_right { float:right; width:280px; margin-top:35px;}
+
+.hb_productlist { padding:0px;}
+.hb_productlist li { margin-left:0px; margin-right:8px;width:187px; height: 255px; padding: 15px;}
+.hb_productlist li:nth-child(4n) { margin-right:0px;}
+.hb_productlist li:nth-child(5n) { margin-right:8px;}
+.hb_productlist li i { color:#999; padding-left:5px;}
+.hb_pagenav { text-align:center;}
+
+.scores_ranking{overflow:hidden;background-color:#fff;padding-bottom:5px;clear:both; margin-bottom:20px;}
+.c_tit1 {line-height: 20px;	overflow: hidden; margin: 12px 0 7px;	width:276px; border-left:4px #b0352f solid;}
+.c_tit1 .fl{font-size: 16px; color:#444;position: relative; padding-left:10px;}
+.c_tit1 .fl em{font-size:14px;}
+.c_tit1 a.more { float: right; padding-right: 10px;}
+.c_tit1 .fl em {font-size: 12px;color:#999;}
+.c_tit1 .fr a{margin-right:10px;}
+.scores_ranking .con {background: url("rand_num10-1.png")/*tpa=http://www.tea7.com/images/teamaster/rand_num10.png*/ no-repeat 10px 8px;clear: both;overflow: hidden;padding: 0 0 5px 30px;width:265px;float:left;}
+.scores_ranking .con li{overflow:hidden;width:245px;line-height:29px;height:29px;float:left;}
+.scores_ranking .con li a.fl{font-size:14px;padding-left:10px;width:170px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;}
+.scores_ranking .con li .fr{color:#999;padding-right:10px;width:35px;overflow:hidden;text-align:right;}
+.scores_ranking .con li .fr em{color:#de5406;}
+.hctj_list li a.fl{width:230px !important;}
+
+.tea_mqz {overflow:hidden;background-color:#fff;clear:both; margin-bottom:20px;}
+.tea_mqz .list{ margin:0 10px; padding:10px 0px 10px 0px; position:relative;overflow:hidden; border-bottom:1px solid #eeeeee;}
+.tea_mqz .list:last-child { border-bottom:0px;}
+.tea_mqz .list .img{float:left;padding-right:10px;}
+.tea_mqz .list .img,.tea_mqz .list .img img{width:100px;height:100px;overflow:hidden;}
+.tea_mqz .list h5{font-weight:normal;height:38px;font-size:14px;}
+.tea_mqz .list h5 a{color:#444;font-size:14px;}
+.tea_mqz .list h5 a:hover{color:#c0501f;}
+.tea_mqz .list .param p{line-height:22px;/*color:#999;*/overflow:hidden;}
+.tea_mqz .list .param p.main_sold{height:22px;overflow:hidden;}
+.tea_mqz .list h5 a{color: #333}
+.tea_mqz .list .param{margin-top: 5px; position:absolute; bottom:6px; left:110px; color:#b0352f;}
+.tea_mqz .list .param p{font-size: 14px; width:150px;}
+.tea_mqz .list .param p span em{font-size: 22px;}
+.tea_mqz .list .param p span.account { padding-top:5px; font-size:12px; float: right; color:#999;}
+
+
+.tea_sample_exchange {overflow:hidden;background-color:#fff;clear:both; margin-bottom:20px;}
+.tea_sample_exchange .list {overflow: hidden; height:55px; padding:10px; border-bottom:1px solid #ecebe9; color:#444; position:relative;}
+.tea_sample_exchange .list img {float: left; padding-right: 10px;height: 55px; overflow: hidden; width: 55px; border-radius:50%;}
+.tea_sample_exchange .list h5{font-size:14px; font-weight:normal; max-height:39px; line-height:18px; overflow:hidden;}
+.tea_sample_exchange .list h5 span{margin-right:3px;}
+.tea_sample_exchange .list h5 a{margin:0px 3px;color:#996600;}
+.tea_sample_exchange .list em{color:#999; padding-top:1px; display:block; position:absolute; bottom:10px; left:75px;}
+.scroll_tea_sample_exchange{ height:228px; overflow:hidden;}
+
+
+.tea_evaluation {overflow:hidden;background-color:#fff;clear:both; margin-bottom:20px; padding-bottom:5px;} 
+
+
+.ts_productlist { padding:0px;}
+.ts_productlist li { margin-left:0px; margin-right:8px;width:187px; height: 285px; padding: 15px;}
+.ts_productlist li:nth-child(4n) { margin-right:0px;}
+.ts_productlist li:nth-child(5n) { margin-right:8px;}
+.ts_productlist li i { color:#999; padding-left:5px;}
+.ts_productlist li .pao {
+    margin-top: 3px;
+    border: 1px solid #ffd580;
+    line-height: 14px;
+    background: #ffffe5;
+    padding: 0 3px;
+    font-size: 12px;
+    color: #b0352f;
+	}
+
+.icon_floridian { position:absolute; width:90px; height:90px;top: 50%;margin-top: -95px;left: 50%;margin-left: -45px; background:url("icon_floridian.png")/*tpa=http://www.tea7.com/images/teamaster/icon_floridian.png*/;}
+
+
+
+/*product_hot*/
+.list_tjcs{overflow:hidden;background-color:#fff;clear:both; margin-bottom:20px;}
+.product_hot_list{position: relative;visibility: visible; overflow: hidden; z-index: 2; left: 0px; width: 280px;padding: 10px 0px 15px;}
+.product_hot_list ul{width: 250px; height:360px!important; overflow: hidden;margin: 0px auto; padding: 0px; position: relative;}
+.product_hot_list ul li{width:248px; border:none; margin-bottom:10px;float: left;overflow: hidden;position: relative;}
+.product_hot_list ul li:hover span, .product_hot_list ul li a:hover b{color:#fff;}
+
+.product_hot_list  .button_left, .product_hot_list  .button_right{top:32%; z-index:999; cursor:pointer;display: none;}
+.product_hot_list  .button_left{position: absolute;left: 0px;width: 25px;height: 40px;background: url("teamastericons.png")/*tpa=http://www.tea7.com/images/teamaster/teamastericons.png*/ 0px -0px;}
+.product_hot_list  .button_right{position: absolute;right: 0px;width:25px;height: 40px;background: url("teamastericons.png")/*tpa=http://www.tea7.com/images/teamaster/teamastericons.png*/ 0px -40px;}
+.product_hot_list  .button_left:hover{background:#9d3a0f url("teamastericons.png")/*tpa=http://www.tea7.com/images/teamaster/teamastericons.png*/ -35px -0px;}
+.product_hot_list  .button_right:hover{background:#9d3a0f url("teamastericons.png")/*tpa=http://www.tea7.com/images/teamaster/teamastericons.png*/ -35px -40px;}
+
+.product_hot_list ul li .single_img { position: relative;}
+.product_hot_list ul li .single_img a{display: block;}
+.product_hot_list ul li .single_img img { height: 250px; width: 250px;margin-bottom: 0px;}
+.product_hot_list ul li .caozuo_btn {width: 250px;height: 30px;}
+.product_hot_list ul li .caozuo_btn a.detail_btn{display: inline-block;width: 124px;height: 30px;line-height: 30px;background: #f5f5f5;font-size: 12px;color: #666666;text-align: center;border-right: 1px solid #e6e6e6;}
+.product_hot_list ul li .caozuo_btn a.detail_btn em{display: inline-block;width: 11px;height: 11px;background: url("search_list_icon1.png")/*tpa=http://www.tea7.com/images/teamaster/search_list_icon1.png*/ no-repeat;vertical-align: top;margin-top: 10px;margin-left: 6px;}
+.product_hot_list ul li .caozuo_btn a.cellect_btn{display: inline-block;width: 125px;height: 30px;line-height: 30px;background: #f5f5f5;font-size: 12px;color: #666666;text-align: center;}
+.product_hot_list ul li .caozuo_btn a.cellect_btn em{display: inline-block;width: 10px;height: 10px;background: url("search_list_icon2.png")/*tpa=http://www.tea7.com/images/teamaster/search_list_icon2.png*/ no-repeat;vertical-align: top;margin-top: 11px;margin-right: 6px;}
+.product_hot_list ul li .caozuo_btn a:hover{color: #c0501f;}
+.product_hot_list ul li .single_title{display: block;width: 230px;height: 20px;line-height: 20px;overflow: hidden;margin-left: 9px;margin-top: 15px;text-align: center;}
+.product_hot_list ul li .single_title a{color: #444444;font-size: 16px;}
+.product_hot_list ul li .single_title a:hover{color: #c0501f;}
+.product_hot_list ul li .single_content{display: block;width: 230px;height: 36px;line-height: 18px;overflow: hidden;color: #999999;font-size: 12px;margin-left: 9px;margin-top: 8px;}
+
+
+
+
+

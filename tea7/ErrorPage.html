@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>茶七网(Tea7.com)</title>
+    <meta charset=utf-8"utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="layout" content="wap_layout">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="refresh" content="3300;url=index.html" tppabs="http://www.tea7.com/">
+    <link href="global.css-var=0.css" tppabs="http://www.tea7.com/themes/mobile/css/global.css?var=0" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        /*响应式布局 start*/
+        function _set_font_size_750() {
+            //先留着这个方法，不要删，要给专题调用
+        }
+        function setRootFontSize() {
+            var width = document.documentElement.clientWidth, fontSize;
+            if (width > 540) { width = 540 }
+            fontSize = (width / 10);
+            document.getElementsByTagName('html')[0].style['font-size'] = fontSize + 'px';
+        }
+        setRootFontSize();
+        window.addEventListener('resize', function () {
+            setRootFontSize();
+        }, false);
+        /*响应式布局 end*/
+    </script>
+    <style>
+        .ns {
+            height: 30px;
+            display: block;
+            clear: both;
+            width: 82%;
+            margin-top: 33px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 0.45rem;
+            color: #666;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .f1 {
+            position: relative;
+            text-align: center;
+            padding: 30px 10px 20px;
+            display: block;
+            width: 3.2rem;
+            margin: 1rem auto 1rem;
+            background: #b54f4a;
+            border-radius: 30px;
+            height: 8rem;
+        }
+
+            .f1 span {
+                font-size: 0.40rem;
+                color: #fff;
+                line-height: 1rem;
+                padding-top: 1.5rem;
+                display: block;
+            }
+
+            .f1 p {
+                width: 88%;
+                padding: 0.2rem;
+                display: block;
+            }
+
+                .f1 p:first-of-type {
+                    position: absolute;
+                    top: 0.5rem;
+                    left: 0;
+                    right: 0;
+                }
+
+                .f1 p:last-of-type {
+                    position: absolute;
+                    bottom: 0.2rem;
+                    left: 0;
+                    right: 0;
+                }
+
+                .f1 p img {
+                    text-align: center;
+                }
+
+        .info {
+            display: block;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #b0b1b2;
+            line-height: 24px;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a {
+            display: inline-block;
+            padding: 0 7px;
+            background: #b54f4a;
+            margin: 0 6px;
+            vertical-align: top;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            -webkit-box-shadow: 0 2px 1px rgba(0,0,0,.07);
+            box-shadow: 0 2px 1px rgba(0,0,0,.07);
+        }
+
+            a, a:visited {
+                color: #fff;
+                text-decoration: none;
+            }
+
+        .quan {
+            width: 0.2rem;
+            height: 0.2rem;
+            background: #fff;
+            display: block;
+            border-radius: 50%;
+            position: absolute;
+            top: 0.2rem;
+            left: 1.6rem;
+            margin-left: 0.1rem;
+        }
+
+            .quan:before {
+                content: "";
+                width: 2px;
+                height: 10rem;
+                position: absolute;
+                display: block;
+                background: #000;
+                left: 0.08rem;
+                top: -9.9rem;
+            }
+
+
+        .shake-leftright {
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-name: shake-leftright;
+            animation-name: shake-leftright;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+        }
+
+        @-webkit-keyframes shake-leftright {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+                -webkit-transform-origin: top center;
+                transform-origin: top center;
+            }
+
+            25% {
+                -webkit-transform: rotate(5deg);
+                transform: rotate(5deg);
+                -webkit-transform-origin: top center;
+                transform-origin: top center;
+            }
+
+            50% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+                -webkit-transform-origin: top center;
+                transform-origin: top center;
+            }
+
+            75% {
+                -webkit-transform: rotate(-5deg);
+                transform: rotate(-5deg);
+                -webkit-transform-origin: top center;
+                transform-origin: top center;
+            }
+
+            100% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+                -webkit-transform-origin: top center;
+                transform-origin: top center;
+            }
+        }
+
+        footer, .footer {
+            position: absolute;
+            width: 100%;
+            bottom: 3.5%;
+        }
+
+            footer, .footer, footer *, .footer * {
+                font-size: 14px;
+                font-family: 400;
+                color: #ccc;
+                text-shadow: 0 1px 0 #fff;
+                text-align: center;
+            }
+    </style>
+
+</head>
+<body>
+    <!--<header class="ns">对不起哦。小七泡茶去了，请稍候再试。</header>-->
+
+    <div class="f1 shake-leftright">
+        <div class="quan"></div>
+        <p><img src="TB2srDNtFXXXXXqXpXXXXXXXXXX_!!35704277.png" tppabs="https://img.alicdn.com/imgextra/i4/35704277/TB2srDNtFXXXXXqXpXXXXXXXXXX_!!35704277.png" width="60%"></p>
+        <span>对不起哦<br>小七泡茶去了<br>请稍候再试</span>
+        <p><img src="TB2SVH0tFXXXXcfXXXXXXXXXXXX_!!35704277.png" tppabs="https://img.alicdn.com/imgextra/i3/35704277/TB2SVH0tFXXXXcfXXXXXXXXXXXX_!!35704277.png" width="100%"></p>
+    </div>
+
+
+    <div style="text-align:center; font-size:0.4rem;">
+        <!--<p>三秒后将返回首页</p>-->
+        <p style="margin-top:10px;">您可以<!--<a href="javascript:history.go(-1);">后退</a>或者--><a href="index.html" tppabs="http://www.tea7.com/">回到茶七网首页</a></p>
+    </div>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-80235561-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+    <div class="footer">茶七网 - 做您一辈子的茶友</div>
+
+</body>
+</html>

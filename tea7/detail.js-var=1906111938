@@ -1,0 +1,81 @@
+
+jQuery(".buy_fr").hide();
+jQuery(window).scroll(function () {
+    if (jQuery(window).scrollTop() < jQuery("#tabs_bar").offset().top) {
+        jQuery(".buy_fr").hide();
+    }
+    else {
+        jQuery(".buy_fr").show();
+    }
+});
+$('#shop_all_product').hover(function () {
+    $('#shop_category_list').toggle();
+});
+
+$(function() {
+    $('#item_cover > .view_thumbs li').each(function (index) {
+        $(this).hover(function () {
+            $('#item_cover > .view_thumbs li').removeClass('current');
+            $(this).addClass('current');
+            $('#item_cover > .view_bd > .view').hide().eq(index).show();
+        });
+    });
+});
+
+$(window).scroll(function () {
+    var $top = $('.detail_page').offset().top;
+    var $scroTop = $(window).scrollTop();
+    if ($scroTop > $top) {
+        $('#tabs_bar').addClass('fixed');
+    } else {
+        $('#tabs_bar').removeClass('fixed');
+    }
+});
+
+// 店铺内容商品
+$(".load_BestSellProducts").each(function () {
+    $(this).load("/Catalog/BestSellProducts");
+});
+
+$('#tabs_bar li').click(function () {
+    $(this).addClass('current').siblings('li').removeClass('current');
+});
+
+
+
+seeagain();
+
+function seeagain() {
+    jQuery.ajax({
+        url: "/catalog/recentlyViewedProductsBlock",
+        type: 'post',
+        success: function (rep) {
+            jQuery("#seemore_items").html(rep);
+        }
+    });
+}
+
+// 加载茶师的产品
+$('.load_TeaMasterGoodTea').each(function () {
+    $(this).load("/TeaMaster/GetTeaMasterGoodTea", { "Id": $(this).attr("data-id") });
+});
+
+// 加载自定义内容
+$(".load_CustomContent").each(function () {
+    var me = $(this);
+    $.getJSON("/Json/GetCustomContent", { "key": $(this).attr("data-id") }, function (data) {
+        me.html(data.Body);
+    });
+});
+
+
+// 加载评论内容
+$(".load_ProductDetailsEvaluationDivisionReviews").each(function () {
+    $(this).load("/Catalog/GetProductDetailsEvaluationDivisionReviews", { "Id": $(this).attr("data-id") });
+});
+
+
+// 加载茶师更多产品
+$(".load_MoreTeaMasterProducts").each(function () {
+    $(this).load("/Catalog/BestSellProductsTeaMaster");
+});

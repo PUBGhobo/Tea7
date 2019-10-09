@@ -1,0 +1,63 @@
+$(function () {
+    //Ê×Ò³µ¯´°¹ºÂò
+    $("#productlist").find("a").click(function () {
+        OpenDiv($(this).attr("id"));
+    })
+    $(".a_buy").click(function () {
+        OpenDiv($(this).attr("data-id"));
+    })
+
+    function OpenDiv(id) {
+        var openDivUrl = '/Catalog/PopIndex?productId=' + id;
+        if (EnableStaticPage != undefined && EnableStaticPage)
+            openDivUrl = '/item/pop_' + id + '.html';
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['992px', '500px'],
+            shade: 0.5,
+            closeBtn: 1,
+            shadeClose: true,
+            scrollbar: false,
+            content: [openDivUrl, 'no']
+        });
+    }
+
+    $("#giftsNav li").click(function () {
+        $("#giftsNav li a").removeClass("action");
+        $(this).find("a").addClass("action");
+        ShowDifferentGifts($(this).data("type"), $(this).data("notype"));
+
+    });
+    //$(".buy_fr").hide();
+    //$(window).scroll(function () {
+    //    if ($(window).scrollTop() < 400) {
+    //        $("#tabs_bar").removeClass('address-top-bar-active');
+    //    }
+    //    else {
+    //        $("#tabs_bar").addClass('address-top-bar-active');
+    //    }
+    //});
+});
+function ShowDifferentGifts(type, noType) {
+    if (typeof (type) == "undefined") type = "";
+    if (typeof (noType) == "undefined") noType = [];
+    $("#productlist li").each(function () {
+        var cids = $(this).data("cids");
+        var isSet = false;
+        for (var i in noType) {
+            if (cids.toString().indexOf(noType[i] + "_") >= 0) {
+                $(this).hide();
+                isSet = true;
+                break;;
+            }
+        }
+        if (!isSet) {
+            if (cids.toString().indexOf((type + "_")) >= 0) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        }
+    });
+}
